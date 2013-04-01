@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+ <script type="text/javascript" src="{{url_for('static', filename='jquery.js')}}"></script>
+ <script type="text/javascript" src="{{url_for('static', filename='numeron.js')}}"></script>
+ <link href='http://fonts.googleapis.com/css?family=Wendy+One' rel='stylesheet' type='text/css'>
+ <link href="{{url_for('static', filename='numeron.css')}}" rel="stylesheet" type="text/css">
+ <title>numerÖn</title>
+</head>
+
+<body>
+
+ <h1>numerÖn</h1>
+
+ {% if params.id %}
+ <p id="id">{{ params.id }}</p>
+ <p id="card"><span>{{ params.card }}</span> numbers</p>
+
+ <div id="number">
+  {% for i in range(0,10) %}
+   <p id="n{{ i }}" class="on">{{ i }}</p> {% if i == 4 %} <br class="clear" /> {% endif %}
+  {% endfor %}
+   <br class="clear" />
+ </div>
+
+ <div id="commands">
+  <button id="clear">clear</button> <button id="submit">call</button>
+ </div>
+
+ <br class="clear" />
+
+ <table id="results">
+  <caption>results</caption>
+  <tr><th>called</th><th>eat</th><th>bite</th></tr>
+ </table>
+ {% endif %}
+
+ <div id="menu">
+  <p>help</p>
+ </div>
+
+ <div id="overlay"> </div>
+ <div id="loading"><h2>Loading..</h2></div>
+ <div id="win"><h2>you win!!</h2></div>
+
+ <div id="help">
+  <h2>HELP</h2>
+  <p>3桁の数字を当てるゲームです。</p>
+  <p>0から9の数字を用い、同じ数字は使いません。</p>
+  <p>○987, ○012, ×989, ×227</p>
+  <ol>
+   <li>3桁の数字をコール(call)します。</li>
+   <li>コールした数字がどの程度合っているかが返ってきます。</li>
+   <li>eat:  数字と桁が合っている数が返ってきます。</li>
+   <li>bite: 数字は合っているが桁が違う数が返ってきます。</li>
+   <li>コールした数字が3桁すべて一致すると3eatとなり、終了。</li>
+  </ol>
+  <p>example: 3桁の数字が094の場合</p>
+  <ol>
+   <li>call: 764 -> answer: 1 eat, 0 bite.</li>
+   <li>call: 351 -> answer: 0 eat, 0 bite.</li>
+   <li>call: 980 -> answer: 0 eat, 2 bite.</li>
+   <li>call: 869 -> answer: 0 eat, 1 bite.</li>
+   <li>call: 708 -> answer: 0 eat, 1 bite.</li>
+   <li>call: 094 -> answer: 3 eat, 0 bite.</li>
+  </ol>
+ </div>
+
+{% if params.debug %}
+ <div id="debug">
+  {{ params }}
+ </div>
+{% endif %}
+
+</body>
+
+</html>
